@@ -1,0 +1,56 @@
+<div class="flex items-center justify-center h-screen">
+  <form
+    class="max-w-lg w-full mx-auto border border-white rounded-2xl p-10 dark:bg-gray-900 hover:scale-[1.02] hover:shadow-lg ease-in-out duration-75">
+
+    <div class="text-2xl text-white font-bold mb-8">{{ formButtonText }}</div>
+
+    <!-- Minecraft Nickname solo se register -->
+    <div class="relative mb-5" *ngIf="showMinecraftNickname">
+      <input type="text" id="Nickname" placeholder=" "
+        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        required />
+      <label for="Nickname"
+        class="absolute text-sm ms-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
+        Your Minecraft Nickname
+      </label>
+    </div>
+
+    <div class="relative mb-5">
+      <input type="email" id="email" placeholder=" "
+        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        required />
+      <label for="email"
+        class="absolute text-sm ms-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
+        Your email
+      </label>
+    </div>
+
+    <div class="relative mb-5">
+      <input type="password" id="password" placeholder=" "
+        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        required />
+      <label for="password"
+        class="absolute text-sm ms-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
+        Your password
+      </label>
+    </div>
+
+    <div class="w-full">
+      <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+        font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        {{ formButtonText }}
+      </button>
+
+      <div class="w-full mt-4">
+        <div class="text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
+          {{ type === 'register' ? 'Have an account?' : 'Don’t have an account?' }}
+        </div>
+        <a [routerLink]="type === 'register' ? '/login' : '/register'"
+          class="block text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          {{ toggleText }}
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
