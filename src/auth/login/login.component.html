@@ -1,0 +1,55 @@
+<div class="flex items-center justify-center h-screen">
+  <form
+    class="max-w-lg w-full mx-auto border border-white rounded-2xl p-10 dark:bg-gray-900 hover:scale-[1.02] hover:shadow-lg ease-in-out duration-75">
+
+    <div class="text-2xl text-white font-bold mb-8">{{ formButtonText }}</div>
+
+    <!-- Minecraft Nickname solo se register -->
+    <lib-input [options]="{
+    id: 'nickname',
+    type: 'text',
+    label: 'Your Minecraft Nickname',
+    required: true,
+    show: showMinecraftNickname,
+    labelBg: 'bg-white dark:bg-gray-900'
+  }">
+    </lib-input>
+
+    <lib-input [options]="{
+    id: 'email',
+    type: 'email',
+    label: 'Your email',
+    required: true,
+    labelBg: 'bg-white dark:bg-gray-900'
+  }">
+    </lib-input>
+
+    <lib-input [options]="{
+    id: 'password',
+    type: 'password',
+    label: 'Your password',
+    required: true,
+    labelBg: 'bg-white dark:bg-gray-900'
+  }">
+    </lib-input>
+
+
+    <div class="w-full">
+      <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+        font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        {{ formButtonText }}
+      </button>
+
+      <div class="w-full mt-4">
+        <div class="text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
+          {{ type === 'register' ? 'Have an account?' : 'Don’t have an account?' }}
+        </div>
+        <a [routerLink]="type === 'register' ? '/login' : '/register'"
+          class="block text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          {{ toggleText }}
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
