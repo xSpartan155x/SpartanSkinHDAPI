@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ButtonComponent } from "../button/button.component";
+import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-hero',
   imports: [ButtonComponent, CommonModule],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss'
+  styleUrl: './hero.component.scss',
 })
 export class HeroComponent implements OnInit {
   @Input() options: any = {
@@ -22,23 +22,23 @@ export class HeroComponent implements OnInit {
     `,
     button: {
       label: 'About Us',
-      variant: 'primary'
-    }
-  }
-  public background: any
+      variant: 'primary',
+    },
+  };
+  public background: any;
 
   ngOnInit(): void {
-    this.checkVariant()
+    this.checkVariant();
   }
 
   private checkVariant() {
     switch (this.options.variant) {
       case 'primary':
-          this.background = 'dark:bg-gray-900'
+        this.background = 'dark:bg-gray-900';
         break;
       case 'secondary':
-          this.background = 'dark:bg-gray-800'
+        this.background = 'dark:bg-gray-800';
         break;
     }
-  } 
+  }
 }

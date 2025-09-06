@@ -9,7 +9,7 @@ import { InputComponent } from '../../libs/input/input.component';
   standalone: true, // necessario se usi `imports` qui
   imports: [CommonModule, RouterLink, InputComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   type: 'login' | 'register' = 'login';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.type = data['type'];
       this.showMinecraftNickname = this.type === 'register';
       this.formButtonText = this.type === 'register' ? 'Register' : 'Login';

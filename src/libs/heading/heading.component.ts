@@ -4,12 +4,11 @@ import { Component, Input } from '@angular/core';
   selector: 'lib-heading',
   imports: [],
   templateUrl: './heading.component.html',
-  styleUrl: './heading.component.scss'
+  styleUrl: './heading.component.scss',
 })
 export class HeadingComponent {
-  @Input() options:any = {
+  @Input() options: any = {
     title: 'title',
-    large: true
-  }
-
+    large: true,
+  };
 }

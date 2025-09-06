@@ -8,9 +8,8 @@ describe('HDElytrasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HDElytrasComponent]
-    })
-    .compileComponents();
+      imports: [HDElytrasComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HDElytrasComponent);
     component = fixture.componentInstance;

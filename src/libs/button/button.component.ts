@@ -4,11 +4,11 @@ import { Component, Input } from '@angular/core';
   selector: 'lib-button',
   imports: [],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss'
+  styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
   @Input() options: any = {
     label: 'label',
     variant: 'primary',
-  }
+  };
 }

@@ -8,9 +8,8 @@ describe('HDSkinsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HDSkinsComponent]
-    })
-    .compileComponents();
+      imports: [HDSkinsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HDSkinsComponent);
     component = fixture.componentInstance;

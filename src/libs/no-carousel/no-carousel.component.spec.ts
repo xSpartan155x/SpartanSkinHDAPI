@@ -8,9 +8,8 @@ describe('NoCarouselComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoCarouselComponent]
-    })
-    .compileComponents();
+      imports: [NoCarouselComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NoCarouselComponent);
     component = fixture.componentInstance;

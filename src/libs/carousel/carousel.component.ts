@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-carousel',
   imports: [],
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.scss'
+  styleUrl: './carousel.component.scss',
 })
-export class CarouselComponent {
-
-}
+export class CarouselComponent {}

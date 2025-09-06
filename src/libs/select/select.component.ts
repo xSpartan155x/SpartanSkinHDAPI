@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
   selector: 'lib-select',
   imports: [CommonModule],
   templateUrl: './select.component.html',
-  styleUrl: './select.component.scss'
+  styleUrl: './select.component.scss',
 })
 export class SelectComponent {
-  @Input() options:any
-
-} 
+  @Input() options: any;
+}

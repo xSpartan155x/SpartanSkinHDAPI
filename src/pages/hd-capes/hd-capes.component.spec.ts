@@ -8,9 +8,8 @@ describe('HDCapesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HDCapesComponent]
-    })
-    .compileComponents();
+      imports: [HDCapesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HDCapesComponent);
     component = fixture.componentInstance;

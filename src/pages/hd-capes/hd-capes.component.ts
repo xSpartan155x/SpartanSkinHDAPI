@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-hd-capes',
   imports: [],
   templateUrl: './hd-capes.component.html',
-  styleUrl: './hd-capes.component.scss'
+  styleUrl: './hd-capes.component.scss',
 })
-export class HDCapesComponent {
-
-}
+export class HDCapesComponent {}

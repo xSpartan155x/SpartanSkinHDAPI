@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
   selector: 'lib-input',
   imports: [CommonModule],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.scss'
+  styleUrl: './input.component.scss',
 })
 export class InputComponent {
-    @Input() options: any;
+  @Input() options: any;
 }

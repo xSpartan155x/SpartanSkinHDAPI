@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { HeadingComponent } from "../../libs/heading/heading.component";
-import { CarouselComponent } from "../../libs/carousel/carousel.component";
-import { HeroComponent } from "../../libs/hero/hero.component";
-import { NoCarouselComponent } from "../../libs/no-carousel/no-carousel.component";
+import { HeadingComponent } from '../../libs/heading/heading.component';
+import { CarouselComponent } from '../../libs/carousel/carousel.component';
+import { HeroComponent } from '../../libs/hero/hero.component';
+import { NoCarouselComponent } from '../../libs/no-carousel/no-carousel.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ HeadingComponent, CarouselComponent, HeroComponent, NoCarouselComponent],
+  imports: [HeadingComponent, CarouselComponent, HeroComponent, NoCarouselComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   public aboutUs = {
@@ -24,9 +24,9 @@ export class HomeComponent {
     `,
     button: {
       label: 'About Us',
-      variant: 'primary'
-    }
-  }
+      variant: 'primary',
+    },
+  };
   public howItWorks = {
     icon: 'fa-solid fa-question',
     heading: 'How it works',
@@ -40,7 +40,7 @@ export class HomeComponent {
     `,
     button: {
       label: 'How it works',
-      variant: 'primary'
-    }
-  }
+      variant: 'primary',
+    },
+  };
 }

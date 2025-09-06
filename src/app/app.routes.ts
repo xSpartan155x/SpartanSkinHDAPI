@@ -12,25 +12,25 @@ import { CatalogComponent } from '../pages/catalog/catalog.component';
 import { LoginComponent } from '../auth/login/login.component';
 
 export const routes: Routes = [
-{
-  path: '', 
-  component: TemplateComponent,
-  children: [
-    // pagine con footer
-    { path: '', component: HomeComponent, data: { footer: true } },
-    { path: 'about-us', component: AboutUsComponent, data: { footer: true } },
-    { path: 'catalog', component: CatalogComponent, data: { footer: true } },
-    { path: 'hot-it-works', component: HowItWorksComponent, data: { footer: true } },
-    { path: 'services', component: ServicesComponent, data: { footer: true } },
-    { path: 'services/how-it-works', component: HowItWorksComponent, data: { footer: true } },
-    { path: 'services/HD-Skin', component: HDSkinsComponent, data: { footer: true } },
-    { path: 'services/HD-Capes', component: HDCapesComponent, data: { footer: true } },
-    { path: 'services/HD-Elytras', component: HDElytrasComponent, data: { footer: true } },
-    { path: 'services/Base-Skin', component: BaseSkinComponent, data: { footer: true } },
+  {
+    path: '',
+    component: TemplateComponent,
+    children: [
+      // pagine con footer
+      { path: '', component: HomeComponent, data: { footer: true } },
+      { path: 'about-us', component: AboutUsComponent, data: { footer: true } },
+      { path: 'catalog', component: CatalogComponent, data: { footer: true } },
+      { path: 'hot-it-works', component: HowItWorksComponent, data: { footer: true } },
+      { path: 'services', component: ServicesComponent, data: { footer: true } },
+      { path: 'services/how-it-works', component: HowItWorksComponent, data: { footer: true } },
+      { path: 'services/HD-Skin', component: HDSkinsComponent, data: { footer: true } },
+      { path: 'services/HD-Capes', component: HDCapesComponent, data: { footer: true } },
+      { path: 'services/HD-Elytras', component: HDElytrasComponent, data: { footer: true } },
+      { path: 'services/Base-Skin', component: BaseSkinComponent, data: { footer: true } },
 
-    // pagine senza footer
-    { path: 'login', component: LoginComponent, data: { footer: false, type: 'login' } },
-    { path: 'register', component: LoginComponent, data: { footer: false, type: 'register' } },
-  ]
-}
+      // pagine senza footer
+      { path: 'login', component: LoginComponent, data: { footer: false, type: 'login' } },
+      { path: 'register', component: LoginComponent, data: { footer: false, type: 'register' } },
+    ],
+  },
 ];

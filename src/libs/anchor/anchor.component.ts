@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-anchor',
   imports: [],
   templateUrl: './anchor.component.html',
-  styleUrl: './anchor.component.scss'
+  styleUrl: './anchor.component.scss',
 })
-export class AnchorComponent {
-
-}
+export class AnchorComponent {}

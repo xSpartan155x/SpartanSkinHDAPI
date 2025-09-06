@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-checkbox',
   imports: [],
   templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.scss'
+  styleUrl: './checkbox.component.scss',
 })
-export class CheckboxComponent {
-
-}
+export class CheckboxComponent {}

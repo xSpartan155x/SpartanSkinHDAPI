@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-hd-skins',
   imports: [],
   templateUrl: './hd-skins.component.html',
-  styleUrl: './hd-skins.component.scss'
+  styleUrl: './hd-skins.component.scss',
 })
-export class HDSkinsComponent {
-
-}
+export class HDSkinsComponent {}

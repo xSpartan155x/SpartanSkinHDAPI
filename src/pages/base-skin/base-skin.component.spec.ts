@@ -8,9 +8,8 @@ describe('BaseSkinComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BaseSkinComponent]
-    })
-    .compileComponents();
+      imports: [BaseSkinComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BaseSkinComponent);
     component = fixture.componentInstance;

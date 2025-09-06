@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-input-search',
   imports: [],
   templateUrl: './input-search.component.html',
-  styleUrl: './input-search.component.scss'
+  styleUrl: './input-search.component.scss',
 })
-export class InputSearchComponent {
-
-}
+export class InputSearchComponent {}

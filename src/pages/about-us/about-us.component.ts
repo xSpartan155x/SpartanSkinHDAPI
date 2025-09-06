@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HeroComponent } from "../../libs/hero/hero.component";
-import { HeadingComponent } from "../../libs/heading/heading.component";
+import { HeroComponent } from '../../libs/hero/hero.component';
+import { HeadingComponent } from '../../libs/heading/heading.component';
 
 @Component({
   selector: 'app-about-us',
   imports: [HeroComponent, HeadingComponent],
   templateUrl: './about-us.component.html',
-  styleUrl: './about-us.component.scss'
+  styleUrl: './about-us.component.scss',
 })
 export class AboutUsComponent {
   public aboutUsOptions: any = {
@@ -19,8 +19,8 @@ export class AboutUsComponent {
           perferendis illo quos libero repellendus culpa voluptate tempore aperiam vero iure animi dolor officiis, molestias non autem? Sunt aspernatur ipsam quaerat? Veniam impedit fuga officia quae sunt expedita? Soluta debitis reprehenderit voluptates, nostrum unde eaque eos! Iste laborum,
           enim magnam id voluptatem sit deserunt earum deleniti. A corporis beatae ad suscipit? Tempora necessitatibus dolor, deserunt suscipit minus a, quisquam nesciunt aperiam harum, provident aliquam eaque dolores! Nihil ab enim aut delectus voluptatum at quo, autem sint excepturi vitae,
           possimus, perspiciatis adipisci. Dignissimos ipsum reprehenderit id dolores, ex quod eveniet. Voluptatem deserunt quia maxime aliquam repellat! Ut, sunt. Culpa, quis illum incidunt tempore vel ex ipsam vero suscipit deleniti, delectus asperiores aspernatur?
-    `
-  }
+    `,
+  };
   public whyWeAreDoingThis: any = {
     icon: 'fa-solid fa-users',
     heading: 'Why we are doing this',
@@ -31,6 +31,6 @@ export class AboutUsComponent {
           perferendis illo quos libero repellendus culpa voluptate tempore aperiam vero iure animi dolor officiis, molestias non autem? Sunt aspernatur ipsam quaerat? Veniam impedit fuga officia quae sunt expedita? Soluta debitis reprehenderit voluptates, nostrum unde eaque eos! Iste laborum,
           enim magnam id voluptatem sit deserunt earum deleniti. A corporis beatae ad suscipit? Tempora necessitatibus dolor, deserunt suscipit minus a, quisquam nesciunt aperiam harum, provident aliquam eaque dolores! Nihil ab enim aut delectus voluptatum at quo, autem sint excepturi vitae,
           possimus, perspiciatis adipisci. Dignissimos ipsum reprehenderit id dolores, ex quod eveniet. Voluptatem deserunt quia maxime aliquam repellat! Ut, sunt. Culpa, quis illum incidunt tempore vel ex ipsam vero suscipit deleniti, delectus asperiores aspernatur?
-    `
-  }
+    `,
+  };
 }
