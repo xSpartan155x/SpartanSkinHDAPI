@@ -5,10 +5,10 @@
     <div class="flex w-full justify-center lg:justify-between">
       <div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <lib-select [options]="productsSelect"></lib-select>
-          <lib-select [options]="skinTypeSelect"></lib-select>
-          <lib-select [options]="skinResolutionSelect"></lib-select>
-          <lib-select [options]="artistsSelect"></lib-select>
+          <lib-select [(ngModel)]="req.productsSelected" [options]="productsSelect"></lib-select>
+          <lib-select *ngIf="req.productsSelected == 'skins'" [(ngModel)]="req.skinTypeSelected" [options]="skinTypeSelect"></lib-select>
+          <lib-select *ngIf="req.skinTypeSelected == 'hd-skins'" [(ngModel)]="req.skinResolutionSelected" [options]="skinResolutionSelect"></lib-select>
+          <lib-select [(ngModel)]="req.artistsSelected" [options]="artistsSelect"></lib-select>
         </div>
         <div class="mt-4">
           <lib-input-search class="flex lg:hidden" />
@@ -16,7 +16,7 @@
       </div>
 
       <div>
-        <lib-input-search class="hidden lg:flex" />
+        <lib-input-search [(ngModel)]="req.search" class="hidden lg:flex" />
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@ import { SelectComponent } from '../../libs/select/select.component';
 import { InputSearchComponent } from '../../libs/input-search/input-search.component';
 import { HeadingComponent } from '../../libs/heading/heading.component';
 import { CardComponent } from '../../libs/card/card.component';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-catalog',
   imports: [
@@ -15,11 +15,20 @@ import { CardComponent } from '../../libs/card/card.component';
     InputSearchComponent,
     HeadingComponent,
     CardComponent,
+    FormsModule
   ],
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent {
+  public req = {
+    productsSelected: '',
+    skinTypeSelected: '',
+    skinResolutionSelected: '',
+    artistsSelected: '',
+    search: ''
+  }
+  
   public productsSelect: any = {
     label: 'Products',
     options: [
