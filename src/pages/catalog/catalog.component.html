@@ -5,9 +5,9 @@
     <div class="flex w-full justify-center lg:justify-between">
       <div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <lib-select [(ngModel)]="req.productsSelected" [options]="productsSelect"></lib-select>
+          <lib-select [(ngModel)]="req.productsSelected" (ngModelChange)="onProductsChange($event)" [options]="productsSelect"></lib-select>
           <lib-select *ngIf="req.productsSelected == 'skins'" [(ngModel)]="req.skinTypeSelected" [options]="skinTypeSelect"></lib-select>
-          <lib-select *ngIf="req.skinTypeSelected == 'hd-skins'" [(ngModel)]="req.skinResolutionSelected" [options]="skinResolutionSelect"></lib-select>
+          <lib-select *ngIf="req.skinTypeSelected == 'hd-skins' && req.productsSelected == 'skins'" [(ngModel)]="req.skinResolutionSelected" [options]="skinResolutionSelect"></lib-select>
           <lib-select [(ngModel)]="req.artistsSelected" [options]="artistsSelect"></lib-select>
         </div>
         <div class="mt-4">

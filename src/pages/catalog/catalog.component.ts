@@ -72,25 +72,21 @@ export class CatalogComponent {
   public num = Array.from({ length: 37 }, () => ({})); // esempi di elementi
   public currentPage = 1;
 
-  // calcola il numero di pagine
   get totalPages() {
     return Math.ceil(this.num.length / this.skinPerPage);
   }
 
-  // elementi da mostrare nella pagina corrente
   get paginatedItems() {
     const start = (this.currentPage - 1) * this.skinPerPage;
     return this.num.slice(start, start + this.skinPerPage);
   }
 
-  // cambiare pagina
   setPage(page: number) {
     if (page < 1) page = 1;
     if (page > this.totalPages) page = this.totalPages;
     this.currentPage = page;
   }
 
-  // controlli Previous / Next
   previousPage() {
     this.setPage(this.currentPage - 1);
   }
@@ -99,8 +95,16 @@ export class CatalogComponent {
     this.setPage(this.currentPage + 1);
   }
 
-  // array delle pagine per il template
   get pagesArray() {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  onProductsChange(value: string) {
+    this.req.productsSelected = value;
+
+    this.req.skinTypeSelected = '';
+    this.req.skinResolutionSelected = '';
+    this.req.artistsSelected = '';
+    this.req.search = '';
   }
 }
