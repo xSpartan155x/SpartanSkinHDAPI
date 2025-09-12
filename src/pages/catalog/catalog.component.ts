@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionComponent } from '../../libs/section/section.component';
 import { SelectComponent } from '../../libs/select/select.component';
@@ -6,8 +6,20 @@ import { InputSearchComponent } from '../../libs/input-search/input-search.compo
 import { HeadingComponent } from '../../libs/heading/heading.component';
 import { CardComponent } from '../../libs/card/card.component';
 import { FormsModule } from '@angular/forms';
+
+interface CatalogItem {
+  name: string;
+  products: string;
+  price: number;
+  artist: string;
+  type?: string;
+  resolution?: string;
+  image?: string;
+}
+
 @Component({
   selector: 'app-catalog',
+  standalone: true,
   imports: [
     CommonModule,
     SectionComponent,
@@ -15,20 +27,66 @@ import { FormsModule } from '@angular/forms';
     InputSearchComponent,
     HeadingComponent,
     CardComponent,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
   public req = {
     productsSelected: '',
     skinTypeSelected: '',
     skinResolutionSelected: '',
     artistsSelected: '',
     search: ''
-  }
-  
+  };
+
+  // 🔹 Mock data
+  public items: CatalogItem[] = [
+    {
+      name: 'Dragon Slayer',
+      products: 'skins',
+      price: 5,
+      artist: 'ArtistOne',
+      type: 'hd-skins',
+      resolution: '1024x',
+      image: 'https://render.hdskins.de/skin/f1e17fa3c22d129ed3ff0f9cb8bafc5983884f9e4298aeb45544c366810d4848/full'
+    },
+    {
+      name: 'Pixel Warrior',
+      products: 'skins',
+      price: 3,
+      artist: 'ArtistTwo',
+      type: 'base-skins',
+      image: 'https://render.hdskins.de/skin/f1e17fa3c22d129ed3ff0f9cb8bafc5983884f9e4298aeb45544c366810d4848/full'
+    },
+    {
+      name: 'Galaxy Elytra',
+      products: 'elytras',
+      price: 7,
+      artist: 'ArtistOne',
+      image: 'https://render.hdskins.de/skin/f1e17fa3c22d129ed3ff0f9cb8bafc5983884f9e4298aeb45544c366810d4848/full'
+    },
+    {
+      name: 'Royal Cape',
+      products: 'capes',
+      price: 4,
+      artist: 'ArtistThree',
+      image: 'https://render.hdskins.de/skin/f1e17fa3c22d129ed3ff0f9cb8bafc5983884f9e4298aeb45544c366810d4848/full'
+    },
+    {
+      name: 'Samurai HD',
+      products: 'skins',
+      price: 6,
+      artist: 'ArtistOne',
+      type: 'hd-skins',
+      resolution: '2048x',
+      image: 'https://render.hdskins.de/skin/f1e17fa3c22d129ed3ff0f9cb8bafc5983884f9e4298aeb45544c366810d4848/full'
+    }
+  ];
+
+  public filteredItems: CatalogItem[] = [];
+
   public productsSelect: any = {
     label: 'Products',
     options: [
@@ -37,6 +95,7 @@ export class CatalogComponent {
       { label: 'Capes', value: 'capes' },
     ],
   };
+
   public skinTypeSelect: any = {
     label: 'Skin Type',
     options: [
@@ -44,6 +103,7 @@ export class CatalogComponent {
       { label: 'Base Skins', value: 'base-skins' },
     ],
   };
+
   public skinResolutionSelect: any = {
     label: 'Skin Resolution',
     options: [
@@ -53,11 +113,13 @@ export class CatalogComponent {
       { label: '4096x', value: '4096x' },
     ],
   };
+
   public artistsSelect: any = {
     label: 'Artists',
     options: [
-      { label: 'Name', value: 'Name' },
-      { label: 'Name', value: 'Name' },
+      { label: 'ArtistOne', value: 'ArtistOne' },
+      { label: 'ArtistTwo', value: 'ArtistTwo' },
+      { label: 'ArtistThree', value: 'ArtistThree' },
     ],
   };
 
@@ -69,16 +131,33 @@ export class CatalogComponent {
   };
 
   public skinPerPage = 30;
-  public num = Array.from({ length: 37 }, () => ({})); // esempi di elementi
   public currentPage = 1;
 
+  ngOnInit() {
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.filteredItems = this.items.filter(item => {
+      const matchProduct = !this.req.productsSelected || item.products === this.req.productsSelected;
+      const matchType = !this.req.skinTypeSelected || item.type === this.req.skinTypeSelected;
+      const matchResolution = !this.req.skinResolutionSelected || item.resolution === this.req.skinResolutionSelected;
+      const matchArtist = !this.req.artistsSelected || item.artist === this.req.artistsSelected;
+      const matchSearch = !this.req.search || item.name.toLowerCase().includes(this.req.search.toLowerCase());
+
+      return matchProduct && matchType && matchResolution && matchArtist && matchSearch;
+    });
+
+    this.setPage(1); // reset alla pagina 1 ogni volta che filtro
+  }
+
   get totalPages() {
-    return Math.ceil(this.num.length / this.skinPerPage);
+    return Math.ceil(this.filteredItems.length / this.skinPerPage);
   }
 
   get paginatedItems() {
     const start = (this.currentPage - 1) * this.skinPerPage;
-    return this.num.slice(start, start + this.skinPerPage);
+    return this.filteredItems.slice(start, start + this.skinPerPage);
   }
 
   setPage(page: number) {
@@ -101,10 +180,10 @@ export class CatalogComponent {
 
   onProductsChange(value: string) {
     this.req.productsSelected = value;
-
     this.req.skinTypeSelected = '';
     this.req.skinResolutionSelected = '';
     this.req.artistsSelected = '';
     this.req.search = '';
+    this.applyFilters();
   }
 }

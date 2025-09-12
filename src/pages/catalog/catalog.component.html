@@ -6,29 +6,36 @@
       <div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <lib-select [(ngModel)]="req.productsSelected" (ngModelChange)="onProductsChange($event)" [options]="productsSelect"></lib-select>
-          <lib-select *ngIf="req.productsSelected == 'skins'" [(ngModel)]="req.skinTypeSelected" [options]="skinTypeSelect"></lib-select>
-          <lib-select *ngIf="req.skinTypeSelected == 'hd-skins' && req.productsSelected == 'skins'" [(ngModel)]="req.skinResolutionSelected" [options]="skinResolutionSelect"></lib-select>
-          <lib-select [(ngModel)]="req.artistsSelected" [options]="artistsSelect"></lib-select>
+          <lib-select *ngIf="req.productsSelected == 'skins'" [(ngModel)]="req.skinTypeSelected" (ngModelChange)="applyFilters()" [options]="skinTypeSelect"></lib-select>
+          <lib-select *ngIf="req.skinTypeSelected == 'hd-skins' && req.productsSelected == 'skins'" [(ngModel)]="req.skinResolutionSelected" (ngModelChange)="applyFilters()" [options]="skinResolutionSelect"></lib-select>
+          <lib-select [(ngModel)]="req.artistsSelected" (ngModelChange)="applyFilters()" [options]="artistsSelect"></lib-select>
         </div>
         <div class="mt-4">
-          <lib-input-search class="flex lg:hidden" />
+          <lib-input-search class="flex lg:hidden" [(ngModel)]="req.search" (ngModelChange)="applyFilters()" />
         </div>
       </div>
 
       <div>
-        <lib-input-search [(ngModel)]="req.search" class="hidden lg:flex" />
+        <lib-input-search [(ngModel)]="req.search" (ngModelChange)="applyFilters()" class="hidden lg:flex" />
       </div>
     </div>
   </div>
 </lib-section>
+
 <lib-section [large]="true">
   <div content class="w-full">
     <hr class="text-gray-700" />
-    <div
-      class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6"
-    >
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       <ng-container *ngFor="let item of paginatedItems">
-        <lib-card></lib-card>
+        <lib-card [options]="{
+          title: item.name,
+          subtitle: item.artist,
+          price: item.price,
+          product: item.products,
+          type: item.type,
+          resolution: item.resolution,
+          image: item.image
+        }"></lib-card>
       </ng-container>
     </div>
   </div>
@@ -36,60 +43,35 @@
 
 <lib-section>
   <div content class="flex w-full justify-center">
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" *ngIf="totalPages > 1">
       <ul class="flex h-8 items-center -space-x-px text-sm">
         <li>
-          <a
-            (click)="previousPage()"
-            class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
+          <a (click)="previousPage()"
+            class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             <span class="sr-only">Previous</span>
-            <svg
-              class="h-2.5 w-2.5 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 1 1 5l4 4"
-              />
+            <svg class="h-2.5 w-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 1 1 5l4 4" />
             </svg>
           </a>
         </li>
 
         <li *ngFor="let page of pagesArray">
-          <a
-            (click)="setPage(page)"
-            [ngClass]="currentPage === page ? pagination.activePage : pagination.notActivePage"
-            >{{ page }}</a
-          >
+          <a (click)="setPage(page)"
+            [ngClass]="currentPage === page ? pagination.activePage : pagination.notActivePage">
+            {{ page }}
+          </a>
         </li>
 
         <li>
-          <a
-            (click)="nextPage()"
-            class="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
+          <a (click)="nextPage()"
+            class="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             <span class="sr-only">Next</span>
-            <svg
-              class="h-2.5 w-2.5 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
-              />
+            <svg class="h-2.5 w-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 9 4-4-4-4" />
             </svg>
           </a>
         </li>
