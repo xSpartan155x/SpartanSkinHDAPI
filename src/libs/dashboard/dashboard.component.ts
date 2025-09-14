@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterLink } from "../../../node_modules/@angular/router/router_module.d-Bx9ArA6K";
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',

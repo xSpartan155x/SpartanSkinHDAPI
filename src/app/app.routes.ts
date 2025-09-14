@@ -12,6 +12,8 @@ import { CatalogComponent } from '../pages/catalog/catalog.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { DashboardComponent } from '../libs/dashboard/dashboard.component';
 import { HomePrivateComponent } from '../private-area/home-private/home-private.component';
+import { UploadComponent } from '../private-area/upload/upload.component';
+import { SkinHostComponent } from '../private-area/skin-host/skin-host.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +42,8 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', component: HomePrivateComponent },
+      { path: 'upload', component: UploadComponent },
+      { path: 'skin-host', component: SkinHostComponent },
     ]
   },
 ];
