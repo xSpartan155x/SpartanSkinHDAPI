@@ -1,5 +1,6 @@
 <div class="relative mb-5" *ngIf="options?.show ?? true">
   <input
+    (input)="onInput($event)"
     [type]="options?.type || 'text'"
     [id]="options?.id"
     placeholder=" "
