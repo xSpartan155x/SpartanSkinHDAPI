@@ -2,7 +2,12 @@
   <form (ngSubmit)="onSubmit()"
     class="mx-auto w-full max-w-lg rounded-2xl border border-white p-10 duration-75 ease-in-out hover:scale-[1.02] hover:shadow-lg dark:bg-gray-900"
   >
-    <div class="mb-8 text-2xl font-bold text-white">{{ formButtonText }}</div>
+    <div class="mb-8 text-2xl font-bold text-white text-center">
+      {{ formButtonText }}
+      <p class="text-sm font-normal text-gray-300 mt-2">
+        {{ type === 'register' ? 'Create your SkinHD account' : 'Welcome back to SkinHD' }}
+      </p>
+    </div>
 
     <!-- Minecraft Nickname solo se register -->
     <lib-input
@@ -46,16 +51,24 @@
     >
     </lib-input>
 
-    <div class="w-full">
+    <div class="w-full space-y-4 mt-4">
       <button
         type="submit"
-        class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        [disabled]="isSubmitting"
+        class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {{ formButtonText }}
+        <span *ngIf="!isSubmitting">{{ formButtonText }}</span>
+        <span *ngIf="isSubmitting" class="flex items-center justify-center">
+          <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          {{ type === 'register' ? 'Creating Account...' : 'Signing In...' }}
+        </span>
       </button>
 
-      <div class="mt-4 w-full">
-        <div class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+      <div class="w-full">
+        <div class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-center">
           {{ type === 'register' ? 'Have an account?' : 'Don’t have an account?' }}
         </div>
         <a
@@ -68,3 +81,5 @@
     </div>
   </form>
 </div>
+
+<lib-modal/>
