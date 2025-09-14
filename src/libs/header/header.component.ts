@@ -2,11 +2,13 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import { RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { UserStateService } from '../../services/user-state.service';
 
 @Component({
   selector: 'lib-header',
-  imports: [DropdownComponent, RouterLink],
+  imports: [DropdownComponent, RouterLink, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -34,7 +36,8 @@ export class HeaderComponent {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public userStateService: UserStateService
   ) {}
 
   ngOnInit(): void {
