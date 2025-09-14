@@ -10,6 +10,8 @@ import { BaseSkinComponent } from '../pages/base-skin/base-skin.component';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { CatalogComponent } from '../pages/catalog/catalog.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { DashboardComponent } from '../libs/dashboard/dashboard.component';
+import { HomePrivateComponent } from '../private-area/home-private/home-private.component';
 
 export const routes: Routes = [
   {
@@ -27,10 +29,17 @@ export const routes: Routes = [
       { path: 'services/HD-Capes', component: HDCapesComponent, data: { footer: true } },
       { path: 'services/HD-Elytras', component: HDElytrasComponent, data: { footer: true } },
       { path: 'services/Base-Skin', component: BaseSkinComponent, data: { footer: true } },
-
+      
       // pagine senza footer
       { path: 'login', component: LoginComponent, data: { footer: false, type: 'login' } },
       { path: 'register', component: LoginComponent, data: { footer: false, type: 'register' } },
     ],
+  },
+  { 
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: '', component: HomePrivateComponent },
+    ]
   },
 ];
