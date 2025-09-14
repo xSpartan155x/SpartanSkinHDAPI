@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SkinHostComponent } from './skin-host.component';
+import { UploadCatalogComponent } from './upload-catalog.component';
 
-describe('SkinHostComponent', () => {
-  let component: SkinHostComponent;
-  let fixture: ComponentFixture<SkinHostComponent>;
+describe('UploadCatalogComponent', () => {
+  let component: UploadCatalogComponent;
+  let fixture: ComponentFixture<UploadCatalogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SkinHostComponent]
+      imports: [UploadCatalogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SkinHostComponent);
+    fixture = TestBed.createComponent(UploadCatalogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

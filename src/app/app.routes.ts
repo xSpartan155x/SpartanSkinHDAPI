@@ -12,8 +12,9 @@ import { CatalogComponent } from '../pages/catalog/catalog.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { DashboardComponent } from '../libs/dashboard/dashboard.component';
 import { HomePrivateComponent } from '../private-area/home-private/home-private.component';
-import { UploadComponent } from '../private-area/upload/upload.component';
-import { SkinHostComponent } from '../private-area/skin-host/skin-host.component';
+import { UploadSkinComponent } from '../private-area/upload-skin/upload-skin.component';
+import { UploadCatalogComponent } from '../private-area/upload-catalog/upload-catalog.component';
+import { RequestsComponent } from '../private-area/requests/requests.component';
 
 export const routes: Routes = [
   {
@@ -40,8 +41,9 @@ export const routes: Routes = [
         component: DashboardComponent,
         children: [
           { path: '', component: HomePrivateComponent, data: { footer: false }},
-          { path: 'upload', component: UploadComponent, data: { footer: false }},
-          { path: 'skin-host', component: SkinHostComponent, data: { footer: false }},
+          { path: 'upload-skin', component: UploadSkinComponent, data: { footer: false }},
+          { path: 'upload-catalog', component: UploadCatalogComponent, data: { footer: false }},
+          { path: 'requests', component: RequestsComponent , data: { footer: false }},
         ]
       },
     ],
