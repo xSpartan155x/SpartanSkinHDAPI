@@ -35,15 +35,16 @@ export const routes: Routes = [
       // pagine senza footer
       { path: 'login', component: LoginComponent, data: { footer: false, type: 'login' } },
       { path: 'register', component: LoginComponent, data: { footer: false, type: 'register' } },
+      { 
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+          { path: '', component: HomePrivateComponent, data: { footer: false }},
+          { path: 'upload', component: UploadComponent, data: { footer: false }},
+          { path: 'skin-host', component: SkinHostComponent, data: { footer: false }},
+        ]
+      },
     ],
   },
-  { 
-    path: 'dashboard',
-    component: DashboardComponent,
-    children: [
-      { path: '', component: HomePrivateComponent },
-      { path: 'upload', component: UploadComponent },
-      { path: 'skin-host', component: SkinHostComponent },
-    ]
-  },
+
 ];
