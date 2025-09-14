@@ -26,18 +26,31 @@
   <div content class="w-full">
     <hr class="text-gray-700" />
     <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-      <ng-container *ngFor="let item of paginatedItems">
-        <lib-card [options]="{
-          title: item.name,
-          subtitle: item.artist,
-          price: item.price,
-          product: item.products,
-          type: item.type,
-          resolution: item.resolution,
-          image: item.image
-        }"></lib-card>
+      <ng-container *ngIf="paginatedItems.length >= 1">
+        <ng-container *ngFor="let item of paginatedItems">
+          <lib-card [options]="{
+            title: item.name,
+            subtitle: item.artist,
+            price: item.price,
+            product: item.products,
+            type: item.type,
+            resolution: item.resolution,
+            image: item.image
+          }"></lib-card>
+        </ng-container>
       </ng-container>
+
     </div>
+    <ng-container *ngIf="paginatedItems.length == 0">
+      <section>
+        <div class="py-8 px-4 my-20 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">No Products Found!</p>
+                <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">No products found for the current filters, try change filters</p>
+            </div>   
+        </div>
+      </section>
+    </ng-container>
   </div>
 </lib-section>
 
