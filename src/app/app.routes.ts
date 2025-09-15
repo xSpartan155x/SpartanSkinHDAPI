@@ -16,6 +16,8 @@ import { HomePrivateComponent } from '../private-area/home-private/home-private.
 import { UploadSkinComponent } from '../private-area/upload-skin/upload-skin.component';
 import { UploadCatalogComponent } from '../private-area/upload-catalog/upload-catalog.component';
 import { RequestsComponent } from '../private-area/requests/requests.component';
+import { OrdersComponent } from '../private-area/orders/orders.component';
+import { UsersListComponent } from '../private-area/users-list/users-list.component';
 
 export const routes: Routes = [
 {
@@ -42,12 +44,17 @@ export const routes: Routes = [
     { 
       path: 'dashboard',
       component: DashboardComponent,
-      canActivate: [AuthGuard],   // 👈 qui mettiamo la guardia
+      canActivate: [AuthGuard],
       children: [
-        { path: '', component: HomePrivateComponent, data: { footer: false }},
-        { path: 'upload-skin', component: UploadSkinComponent, data: { footer: false }},
-        { path: 'upload-catalog', component: UploadCatalogComponent, data: { footer: false }},
-        { path: 'requests', component: RequestsComponent , data: { footer: false }},
+        // users
+        { path: '', component: HomePrivateComponent, data: { footer: false, group: 'user' }},
+        { path: 'upload-skin', component: UploadSkinComponent, data: { footer: false, group: 'user' }},
+        { path: 'orders', component: OrdersComponent, data: { footer: false, group: 'user' }},
+        // artists
+        { path: 'upload-catalog', component: UploadCatalogComponent, data: { footer: false, group: 'artist' }},
+        { path: 'requests', component: RequestsComponent , data: { footer: false, group: 'artist' }},
+        // admins
+        { path: 'users-list', component: UsersListComponent , data: { footer: false, group: 'admin' }},
       ]
     },
   ],

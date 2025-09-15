@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { UserStateService } from '../services/user-state.service';
 
 @Injectable({
@@ -7,13 +7,29 @@ import { UserStateService } from '../services/user-state.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private userStateService: UserStateService, private router: Router) {}
+  private groupHierarchy = ['user', 'artist', 'admin']; // ordine gerarchico
 
-  canActivate(): boolean {
-    if (this.userStateService.isLoggedIn()) {
-      return true; // Utente loggato → può accedere
+  constructor(private userState: UserStateService, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const user = this.userState.getUser();
+    if (!user) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    // recuperiamo il gruppo richiesto dalla route (puoi aggiungerlo nel data)
+    const requiredGroup: 'admin' | 'artist' | 'user' | undefined = route.data['group'];
+
+    if (!requiredGroup) return true; // se non c'è gruppo richiesto, la rotta è aperta
+
+    const userRank = this.groupHierarchy.indexOf(user.group);
+    const requiredRank = this.groupHierarchy.indexOf(requiredGroup);
+
+    if (userRank >= requiredRank) {
+      return true; // accesso consentito
     } else {
-      this.router.navigate(['/login']); // Non loggato → redirect al login
+      this.router.navigate(['/dashboard']); // o una pagina "Access Denied"
       return false;
     }
   }
