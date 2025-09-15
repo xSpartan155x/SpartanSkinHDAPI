@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
@@ -18,6 +19,11 @@ export class UserStateService {
 
   public user$ = this.userSubject.asObservable();
   public token$ = this.tokenSubject.asObservable();
+
+  // Emits true if logged in, false otherwise
+  public userState$ = combineLatest([this.user$, this.token$]).pipe(
+    map(([user, token]) => !!user && !!token)
+  );
 
   constructor(private router: Router, private authService: AuthService) {
     this.initializeFromStorage();

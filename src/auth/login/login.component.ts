@@ -42,10 +42,12 @@ export class LoginComponent implements OnInit {
       this.toggleText = this.type === 'register' ? 'Login' : 'Register';
     });
 
-    // Check if user is already logged in
-    if (this.userStateService.isLoggedIn()) {
-      this.userStateService.redirectToDashboard();
-    }
+    // Reactive check for user login state
+    this.userStateService.userState$.subscribe((user) => {
+      if (this.userStateService.isLoggedIn()) {
+        this.userStateService.redirectToDashboard();
+      }
+    });
   }
 
   onSubmit() {
