@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 export interface User {
   email: string;
   nickname: string;
+  group: 'admin' | 'artist' | 'user'; // aggiunto group
 }
 
 @Injectable({
@@ -50,6 +51,10 @@ export class UserStateService {
 
   getToken(): string | null {
     return this.tokenSubject.value || localStorage.getItem('token');
+  }
+
+  getUserGroup(): 'admin' | 'artist' | 'user' | null {
+    return this.userSubject.value?.group || null; // metodo per recuperare il group
   }
 
   isLoggedIn(): boolean {

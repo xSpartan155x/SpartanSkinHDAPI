@@ -19,16 +19,16 @@ const dbConfig = {
   database: "skinhd"
 };
 
-// Email configuration (use your email service)
+// Email configuration
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // or your email service
+  service: 'gmail',
   auth: {
-    user: 'spartan155official@gmail.com', // replace with your email
-    pass: 'gjnu okwe cgph ihgn' // replace with your app password
+    user: 'spartan155official@gmail.com',
+    pass: 'gjnu okwe cgph ihgn'
   }
 });
 
-// Temporary storage for OTPs (in production, use Redis or database)
+// Temporary storage for OTPs
 const otpStorage = new Map();
 
 // Generate OTP
@@ -60,33 +60,26 @@ async function sendOTPEmail(email, otp) {
 
 // Register - Send OTP
 app.post("/api/register", async (req, res) => {
-  const { nickname, email, password } = req.body;
+  const { nickname, email, password, group } = req.body; // group opzionale
   const connection = await mysql.createConnection(dbConfig);
 
   try {
-    // Check if email already exists
     const [rows] = await connection.execute("SELECT * FROM users WHERE email = ?", [email]);
     if (rows.length > 0) {
       await connection.end();
       return res.status(400).json({ message: "Email già registrata" });
     }
 
-    // Generate and store OTP
     const otp = generateOTP();
     otpStorage.set(email, {
       otp: otp,
-      userData: { nickname, email, password },
+      userData: { nickname, email, password, group },
       timestamp: Date.now()
     });
 
-    // Send OTP via email
     await sendOTPEmail(email, otp);
-
     await connection.end();
-    res.status(200).json({ 
-      message: "OTP inviato via email", 
-      requireOTP: true 
-    });
+    res.status(200).json({ message: "OTP inviato via email", requireOTP: true });
 
   } catch (error) {
     await connection.end();
@@ -101,38 +94,32 @@ app.post("/api/verify-otp", async (req, res) => {
   const connection = await mysql.createConnection(dbConfig);
 
   try {
-    // Check if OTP exists and is valid
     const storedData = otpStorage.get(email);
     if (!storedData) {
       await connection.end();
       return res.status(400).json({ message: "OTP non trovato o scaduto" });
     }
 
-    // Check if OTP is expired (10 minutes)
     if (Date.now() - storedData.timestamp > 10 * 60 * 1000) {
       otpStorage.delete(email);
       await connection.end();
       return res.status(400).json({ message: "OTP scaduto" });
     }
 
-    // Verify OTP
     if (storedData.otp !== otp) {
       await connection.end();
       return res.status(400).json({ message: "OTP non valido" });
     }
 
-    // Complete registration
-    const { nickname, password } = storedData.userData;
+    const { nickname, password, group } = storedData.userData;
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     await connection.execute(
-      "INSERT INTO users (nickname, email, password) VALUES (?, ?, ?)",
-      [nickname, email, hashedPassword]
+      "INSERT INTO users (nickname, email, password, user_group) VALUES (?, ?, ?, ?)",
+      [nickname, email, hashedPassword, group || 'user'] // default 'user'
     );
 
-    // Clean up OTP
     otpStorage.delete(email);
-
     await connection.end();
     res.status(201).json({ message: "Utente registrato con successo" });
 
@@ -165,20 +152,22 @@ app.post("/api/login", async (req, res) => {
     const token = jwt.sign(
       { 
         id: user.id,
-        email: user.email, 
-        nickname: user.nickname 
-      }, 
-      "secretKey", 
+        email: user.email,
+        nickname: user.nickname,
+        group: user.user_group
+      },
+      "secretKey",
       { expiresIn: "24h" }
     );
-    
+
     await connection.end();
-    res.json({ 
+    res.json({
       token,
       user: {
         id: user.id,
         email: user.email,
-        nickname: user.nickname
+        nickname: user.nickname,
+        group: user.user_group
       }
     });
 
@@ -189,30 +178,25 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// Verify token endpoint
+// Verify token
 app.get("/api/verify-token", async (req, res) => {
   const token = req.headers.authorization?.replace('Bearer ', '');
-  
-  if (!token) {
-    return res.status(401).json({ message: "Token non fornito" });
-  }
+  if (!token) return res.status(401).json({ message: "Token non fornito" });
 
   try {
     const decoded = jwt.verify(token, "secretKey");
     const connection = await mysql.createConnection(dbConfig);
-    
+
     const [rows] = await connection.execute(
-      "SELECT email, nickname FROM users WHERE email = ?",
+      "SELECT email, nickname, user_group FROM users WHERE email = ?",
       [decoded.email]
     );
     await connection.end();
-    
-    if (rows.length === 0) {
-      return res.status(401).json({ message: "Utente non trovato" });
-    }
+
+    if (rows.length === 0) return res.status(401).json({ message: "Utente non trovato" });
 
     const user = rows[0];
-    res.json({ user }); // { email, nickname }
+    res.json({ user: { email: user.email, nickname: user.nickname, group: user.user_group } });
 
   } catch (error) {
     res.status(401).json({ message: "Token non valido" });
