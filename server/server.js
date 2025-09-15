@@ -201,7 +201,10 @@ app.get("/api/verify-token", async (req, res) => {
     const decoded = jwt.verify(token, "secretKey");
     const connection = await mysql.createConnection(dbConfig);
     
-    const [rows] = await connection.execute("SELECT * FROM users WHERE id = ?", [decoded.id]);
+    const [rows] = await connection.execute(
+      "SELECT email, nickname FROM users WHERE email = ?",
+      [decoded.email]
+    );
     await connection.end();
     
     if (rows.length === 0) {
@@ -209,13 +212,7 @@ app.get("/api/verify-token", async (req, res) => {
     }
 
     const user = rows[0];
-    res.json({ 
-      user: {
-        id: user.id,
-        email: user.email,
-        nickname: user.nickname
-      }
-    });
+    res.json({ user }); // { email, nickname }
 
   } catch (error) {
     res.status(401).json({ message: "Token non valido" });

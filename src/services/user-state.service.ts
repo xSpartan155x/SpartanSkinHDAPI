@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 export interface User {
-  id: number;
   email: string;
   nickname: string;
 }
@@ -28,13 +27,12 @@ export class UserStateService {
     if (token) {
       this.tokenSubject.next(token);
 
-      // Verifica token col server e recupera dati utente
       this.authService.verifyToken().subscribe({
-        next: (user: User) => {
-          this.userSubject.next(user);
+        next: (res: { user: User }) => {
+          this.userSubject.next(res.user);
         },
         error: () => {
-          this.logout(); // Token non valido
+          this.logout();
         }
       });
     }
